@@ -1,0 +1,89 @@
+﻿Setup Full Screen in Linux on Hyper-V
+------------------------------------------------------------------
+su
+grubby --update-kernel=ALL --args="video=hyperv_fb:1920x1080"
+
+
+Setup OpenJDK 11 in CentOS
+------------------------------------------------------------------
+
+Reference:    https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
+Last 11 GA:     https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+
+curl -O https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+tar zxvf openjdk-11.0.2_linux-x64_bin.tar.gz
+sudo mv jdk-11.0.2/ /usr/local/
+sudo gedit /etc/profile.d/jdk11.sh
+
+export JAVA_HOME=/usr/local/jdk-11.0.2
+export PATH=$PATH:$JAVA_HOME/bin
+
+source /etc/profile.d/jdk11.sh
+java -version
+
+    openjdk version "11.0.2" 2019-01-15
+    OpenJDK Runtime Environment 18.9 (build 11.0.2+9)
+    OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)
+
+which java
+
+    /usr/local/jdk-11.0.2/bin/java
+             
+
+Setup Maven 3.6.1 in CentOS
+
+------------------------------------------------------------------            
+
+cd /opt
+wget https://www-eu.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+sudo tar xzf aapache-maven-3.6.1-bin.tar.gz
+sudo mv apache-maven-3.6.1/ /opt/
+sudo ln -s apache-maven-3.6.1 maven
+sudo gedit /etc/profile.d/maven.sh
+
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+source /etc/profile.d/maven.sh
+
+mvn -version
+
+    Apache Maven 3.6.0 (97c98ec64a1fdfee7767ce5ffb20918da4f719f3; 2018-10-24T18:41:47Z)
+    Maven home: /opt/maven
+    Java version: 11.0.2, vendor: Oracle Corporation, runtime: /usr/java/jdk-11.0.2
+    Default locale: en_US, platform encoding: UTF-8
+    OS name: "linux", version: "4.18.16-300.fc29.x86_64", arch: "amd64", family: "unix"
+
+rm -f apache-maven-3.6.1-bin.tar.gz
+
+
+Setup Tomcat 9 in CentOS
+------------------------------------------------------------------            
+
+ORIGINAL
+--------
+--get http://www-eu.apache.org/dist/tomcat/tomcat-9/v9.0.21/bin/apache-tomcat-9.0.21.tar.gz
+--
+--tar -zxpvf apache-tomcat-9.0.21.tar.gz -C /opt/
+--
+--cd /opt/
+--
+--ln -s apache-tomcat-9.0.21 tomcat
+--
+--echo "export CATALINA_HOME='/opt/tomcat/'" >> ~/.bashrc
+--source ~/.bashrc
+
+TomcatSetupLinux-CentOS.sh
+
+
+Setup Docker
+------------------------------------------------------------------
+
+
+DockerSetupLinux-CentOS.sh
+DockerComposeSetupLinux-CentOS.sh
+
+
+
+
+

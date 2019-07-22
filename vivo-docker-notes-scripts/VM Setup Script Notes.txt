@@ -1,0 +1,42 @@
+New-VHD -Path C:\MyVHDs\CentOS.vhdx -SizeBytes 127GB -Dynamic -BlockSizeBytes 1MB
+Get-VMIntegrationService -VMName "CentOS 7 x86_64-1810"
+Set-VM -VMName "CentOS 7 x86_64-1810" -EnhancedSessionTransportType HvSocket
+
+
+PowerShellSetupLinux-CentOS.sh
+
+TomcatSetupLinux-CentOS.sh
+
+DockerSetupLinux-CentOS.sh
+
+DockerComposeSetupLinux-CentOS.sh
+
+
+
+https://blog.michaeldeongreen.com/static-pages/how-to-run-docker-on-a-windows-10-pro-hyper-v-virtual-machine.html
+
+https://docs.docker.com/compose/overview/
+https://docs.docker.com/get-started/
+https://docs.docker.com/engine/reference/run/
+
+https://raw.githubusercontent.com/MicrosoftDocs/Virtualization-Documentation/live/hyperv-tools/Nested/Enable-NestedVm.ps1
+https://raw.githubusercontent.com/MicrosoftDocs/Virtualization-Documentation/live/hyperv-tools/Nested/Get-NestedVirtStatus.ps1
+
+
+# https://www.altaro.com/hyper-v/centos-linux-hyper-v/
+
+# CentOS Post-Install Wrap-Up for Hyper-V
+sudo yum install -y nano
+
+# Enable Dynamic Memory In-Guest
+# sudo nano /etc/udev/rules.d/100-balloon.rules
+# SUBSYSTEM=="memory", ACTION=="add", ATTR{state}="online"
+echo ""SUBSYSTEM=="memory", ACTION=="add", ATTR{state}="online""" >> /etc/udev/rules.d/100-balloon.rules
+
+# Install Extra Hyper-V Tools
+sudo yum install -y hyperv-daemons
+
+# Change the Disk I/O Scheduler
+su root 
+echo noop > /sys/block/sda/queue/scheduler
+exit
